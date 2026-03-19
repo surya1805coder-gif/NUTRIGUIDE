@@ -27,5 +27,13 @@ NutriGuide is a professional-grade nutrition recommendation engine that uses **R
    ```
 4. Run the development server: `npm run dev`
 
+## 🗺️ Future Roadmap
+- [ ] **AI Nutritionist Chat**: 1-on-1 personal conversational chat interface for daily guidance.
+- [ ] **Photo-to-Macros (Vision AI)**: Analyze meal photos instantly using Gemini 2.0 Flash.
+- [ ] **Smart Grocery List**: Automatic generation of shopping lists from generated meal plans.
+- [ ] **Voice Concierge**: Interactive voice-based nutritional assistant.
+- [ ] **Wearable Integration**: Sync with Google Fit/Apple Health for dynamic activity-based plan updates.
+- [ ] **Clinical Recipe Studio**: Step-by-step AI-generated recipes for every meal.
+
 ---
 *Built with ❤️ for a Healthier Future.*

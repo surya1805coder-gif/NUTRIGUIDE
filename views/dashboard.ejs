@@ -1,0 +1,187 @@
+<% 
+    // Logic Consolidation at Top
+    let bmiStatus = "Normal";
+    let badgeColor = "bg-emerald-100 text-emerald-700";
+    if (userProfile.bmi < 18.5) { bmiStatus = "Underweight"; badgeColor = "bg-blue-100 text-blue-700"; }
+    else if (userProfile.bmi >= 25 && userProfile.bmi < 30) { bmiStatus = "Overweight"; badgeColor = "bg-orange-100 text-orange-700"; }
+    else if (userProfile.bmi >= 30) { bmiStatus = "Obese"; badgeColor = "bg-red-100 text-red-700"; }
+
+    let indicatorPos = (userProfile.bmi / 40) * 100;
+    if (indicatorPos > 100) indicatorPos = 98;
+    if (indicatorPos < 2) indicatorPos = 2;
+
+    let protein = "22%", proteinText = "20-25%";
+    let carbs = "50%", carbsText = "45-55%";
+    let fats = "28%", fatsText = "25-30%";
+    
+    if (userProfile.goal.includes("Muscle")) { 
+        protein = "32%"; proteinText = "30-35%"; 
+        carbs = "42%"; carbsText = "40-45%"; 
+        fats = "22%"; fatsText = "20-25%"; 
+    }
+    if (userProfile.goal.includes("Loss")) { 
+        protein = "27%"; proteinText = "25-30%"; 
+        carbs = "37%"; carbsText = "35-40%"; 
+        fats = "32%"; fatsText = "30-35%"; 
+    }
+%>
+
+<div class="container mx-auto px-6 py-12">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+        <div>
+            <h1 class="text-4xl font-bold text-slate-900 mb-2">Health Analysis</h1>
+            <p class="text-slate-500">
+                Personalized for <%= userProfile.age %>y <%= userProfile.gender %> &bull; 
+                <%= userProfile.diet %> &bull; 
+                Goal: <%= userProfile.goal %>
+            </p>
+        </div>
+        <form action="/purge" method="POST">
+            <button type="submit" class="bg-red-50 text-red-600 px-6 py-3 rounded-2xl font-semibold border border-red-100 hover:bg-red-600 hover:text-white transition duration-300">
+                Purge My Data & Start Over
+            </button>
+        </form>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-12">
+        <!-- BMI Stats Side -->
+        <div class="space-y-8">
+            <div class="glass p-8 rounded-[2.5rem] shadow-xl text-center">
+                <h3 class="text-slate-500 font-semibold mb-2 uppercase tracking-widest text-sm">Your BMI Score</h3>
+                <div class="text-6xl font-black text-slate-900 mb-4 tracking-tighter">
+                    <%= userProfile.bmi.toFixed(1) %>
+                </div>
+                
+                <span class="<%= badgeColor %> px-6 py-2 rounded-full font-bold inline-block text-lg shadow-sm">
+                    <%= bmiStatus %>
+                </span>
+
+                <!-- BMI Scale Visualization -->
+                <div class="mt-8 relative h-4 bg-slate-100 rounded-full overflow-hidden flex">
+                    <div class="h-full bg-blue-300 w-[18.5%] border-r border-white/20" title="Underweight"></div>
+                    <div class="h-full bg-emerald-400 w-[25%] border-r border-white/20" title="Normal"></div>
+                    <div class="h-full bg-orange-300 w-[25%] border-r border-white/20" title="Overweight"></div>
+                    <div class="h-full bg-red-400 w-[31.5%]" title="Obese"></div>
+                    
+                    <div class="absolute top-0 h-4 w-1 bg-slate-900 shadow-[0_0_10px_rgba(0,0,0,0.5)] transition-all duration-1000" id="bmiIndicator"></div>
+                </div>
+                <div class="flex justify-between text-[10px] text-slate-400 mt-2 font-bold uppercase tracking-tighter">
+                    <span>15</span>
+                    <span>18.5</span>
+                    <span>25</span>
+                    <span>30</span>
+                    <span>40+</span>
+                </div>
+
+                <div class="mt-8 pt-8 border-t border-slate-100 text-left space-y-4">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-400">Current Weight</span>
+                        <span class="font-bold text-slate-700"><%= userProfile.weight %> kg</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-400">Recorded Height</span>
+                        <span class="font-bold text-slate-700"><%= userProfile.height %> cm</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-400">Activity Level</span>
+                        <span class="font-bold text-emerald-600 capitalize"><%= userProfile.activity.replace('_', ' ') %></span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-400">Daily Steps</span>
+                        <span class="font-bold text-blue-600"><%= userProfile.steps %> steps</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metabolic Profile -->
+            <div class="glass p-8 rounded-[2.5rem] shadow-xl">
+                <h3 class="text-slate-500 font-semibold mb-6 uppercase tracking-widest text-sm text-center">Metabolic Engine</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-4 bg-emerald-50 rounded-3xl">
+                        <div class="text-2xl font-bold text-emerald-700"><%= userProfile.bmr %></div>
+                        <div class="text-[10px] uppercase font-bold text-emerald-500">BMR (kcal)</div>
+                    </div>
+                    <div class="text-center p-4 bg-blue-50 rounded-3xl">
+                        <div class="text-2xl font-bold text-blue-700"><%= userProfile.tdee %></div>
+                        <div class="text-[10px] uppercase font-bold text-blue-500">TDEE (kcal)</div>
+                    </div>
+                </div>
+                <p class="mt-4 text-[10px] text-slate-400 text-center italic leading-tight">
+                    TDEE represents your total daily caloric burn including activity.
+                </p>
+            </div>
+
+            <div class="bg-slate-900 p-8 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="text-emerald-400 font-bold mb-6 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                        </svg>
+                        Daily Targets
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-slate-400">Protein</span>
+                                <span class="text-emerald-400"><%= proteinText %></span>
+                            </div>
+                            <div class="h-1.5 bg-slate-800 rounded-full"><div class="h-full bg-emerald-500 rounded-full" id="proteinBar"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-slate-400">Carbs</span>
+                                <span class="text-blue-400"><%= carbsText %></span>
+                            </div>
+                            <div class="h-1.5 bg-slate-800 rounded-full"><div class="h-full bg-blue-500 rounded-full" id="carbsBar"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-slate-400">Healthy Fats</span>
+                                <span class="text-orange-400"><%= fatsText %></span>
+                            </div>
+                            <div class="h-1.5 bg-slate-800 rounded-full"><div class="h-full bg-orange-500 rounded-full" id="fatsBar"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decorative element -->
+                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl"></div>
+            </div>
+        </div>
+
+        <!-- AI Advice Main -->
+        <div class="lg:col-span-2">
+            <div class="glass p-10 rounded-[2.5rem] shadow-xl min-h-full">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800">AI Personalized Meal Plan</h2>
+                </div>
+                
+                <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed space-y-4">
+                    <%- aiAdvice %>
+                </div>
+
+                <div class="mt-12 p-6 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-start gap-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <p class="text-sm text-emerald-800">
+                        <strong>Clinical Disclaimer:</strong> This advice is generated by AI based on clinical metadata. Always consult with a doctor before making major dietary changes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('bmiIndicator').style.left = '<%= indicatorPos %>%';
+    document.getElementById('proteinBar').style.width = '<%= protein %>';
+    document.getElementById('carbsBar').style.width = '<%= carbs %>';
+    document.getElementById('fatsBar').style.width = '<%= fats %>';
+</script>

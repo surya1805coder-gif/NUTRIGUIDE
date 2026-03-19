@@ -1,0 +1,28 @@
+<div class="container mx-auto px-6 py-32 text-center">
+    <div class="max-w-2xl mx-auto glass p-16 rounded-[3rem] shadow-2xl">
+        <div class="w-24 h-24 bg-red-100 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+        </div>
+        
+        <h1 class="text-4xl font-bold text-slate-800 mb-4"><%= title %></h1>
+        <p class="text-xl text-slate-500 mb-10 leading-relaxed">
+            <%= message %> <br>
+            We are currently upgrading our AI servers to better serve your health goals.
+        </p>
+        
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <a href="/" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-emerald-600 transition shadow-lg shrink-0">
+                Back to Safety
+            </a>
+            <button onclick="window.location.reload()" class="bg-white text-slate-700 px-8 py-4 rounded-2xl font-bold border border-slate-200 hover:bg-slate-50 transition shrink-0">
+                Try Reconnecting
+            </button>
+        </div>
+        
+        <p class="mt-12 text-slate-400 text-sm">
+            Support ID: <span class="font-mono text-slate-300">#ERR-<%= Math.floor(Math.random() * 100000) %></span>
+        </p>
+    </div>
+</div>

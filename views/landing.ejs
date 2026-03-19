@@ -1,0 +1,195 @@
+<section class="hero-gradient text-white py-24">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
+            Precision Nutrition <br> <span class="text-emerald-300">Powered by AI.</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-slate-200 mb-10 max-w-2xl mx-auto font-light">
+            We use RAG architecture and clinical nutrition datasets to provide you with a meal plan that actually works for <strong>your</strong> body.
+        </p>
+        <a href="#calculator" class="bg-emerald-400 text-slate-900 px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition shadow-lg inline-block">
+            Start Your Health Journey
+        </a>
+    </div>
+</section>
+
+<!-- Educational Section -->
+<section id="about" class="py-24 container mx-auto px-6">
+    <div class="grid md:grid-cols-3 gap-12 text-center">
+        <div class="p-8 rounded-3xl bg-white shadow-xl hover:-translate-y-2 transition duration-300">
+            <div class="bg-emerald-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Why Nutrition Matters</h3>
+            <p class="text-slate-600">Your diet is the fuel for every cellular process. Small adjustments can lead to massive gains in energy and longevity.</p>
+        </div>
+        <div class="p-8 rounded-3xl bg-white shadow-xl hover:-translate-y-2 transition duration-300">
+            <div class="bg-slate-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-slate-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Macronutrients Explained</h3>
+            <p class="text-slate-600">Learn how proteins, fats, and carbohydrates interact to regulate hormones and optimize metabolic performance.</p>
+        </div>
+        <div class="p-8 rounded-3xl bg-white shadow-xl hover:-translate-y-2 transition duration-300">
+            <div class="bg-emerald-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">RAG + AI Intelligence</h3>
+            <p class="text-slate-600">Our system scans thousands of clinical rows to find the exact food items that align with your unique physiological needs.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Calculator Section -->
+<section id="calculator" class="py-24 bg-slate-100">
+    <div class="container mx-auto px-6">
+        <div class="max-w-xl mx-auto glass rounded-[3rem] p-10 shadow-2xl">
+            <h2 class="text-3xl font-bold text-center mb-10 text-slate-800">Your Health Profile</h2>
+            
+            <form action="/calculate" method="POST" class="space-y-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-700">Age</label>
+                        <input type="number" name="age" min="1" max="120" required class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none" placeholder="25">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-700">Gender</label>
+                        <select name="gender" required class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none appearance-none bg-white">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-700">Weight (kg)</label>
+                        <input type="number" step="0.1" name="weight" min="10" max="300" required class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none" placeholder="70.0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-700">Height (cm)</label>
+                        <input type="number" name="height" min="50" max="250" required class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none" placeholder="175">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-700">Activity Level</label>
+                        <select name="activity" class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none appearance-none bg-white">
+                            <option value="sedentary">Sedentary (Office job)</option>
+                            <option value="light">Lightly Active (1-3 days/week)</option>
+                            <option value="moderate">Moderately Active (3-5 days/week)</option>
+                            <option value="active">Very Active (6-7 days/week)</option>
+                            <option value="extra_active">Extremely Active (Physical job)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-700">Average Daily Steps</label>
+                        <input type="number" name="steps" min="0" max="50000" class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none" placeholder="5000">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-700">Dietary Preference</label>
+                        <select name="diet" class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none appearance-none bg-white">
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="non-vegetarian">Non-Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="eggetarian">Eggetarian</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-700">Health Goal</label>
+                        <select name="goal" class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none appearance-none bg-white">
+                            <option>Weight Loss</option>
+                            <option>Muscle Gain</option>
+                            <option>Energy Efficiency</option>
+                            <option>Longevity/Vitality</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 text-slate-700">Plan Duration</label>
+                    <select name="days" class="w-full px-4 py-3 rounded-2xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500 transition outline-none appearance-none bg-white">
+                        <option value="1">1 Day (Quick Start)</option>
+                        <option value="3">3 Days (Focused)</option>
+                        <option value="5">5 Days (Standard)</option>
+                        <option value="7">7 Days (Full Week)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-emerald-600 transition duration-300 shadow-lg">
+                    Generate My Premium Plan
+                </button>
+            </form>
+
+            <p class="text-center text-slate-400 text-xs mt-8 italic">
+                Your data is never stored. We follow a "Privacy First" protocol.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed How It Works Section -->
+<section id="how-it-works" class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16 text-slate-800">The Science Behind NutriGuide</h2>
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800" alt="Healthy Food" class="rounded-[3rem] shadow-2xl">
+            </div>
+            <div class="space-y-8">
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">1</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Clinical BMI Analysis</h4>
+                        <p class="text-slate-600">We don't just calculate your BMI; we analyze it against clinical benchmarks to determine your metabolic category (Underweight, Healthy, Overweight, or Obese).</p>
+                    </div>
+                </div>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">2</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">RAG Architecture</h4>
+                        <p class="text-slate-600">Using Retrieval-Augmented Generation, our AI doesn't hallucinate. It queries a curated database of 5,000+ Indian food items to find the best matches for your profile.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">3</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Triple-Shield Redundancy</h4>
+                        <p class="text-slate-600">Our proprietary engine runs through Groq, Gemini, and Mistral models simultaneously to ensure the highest accuracy and 99.9% uptime for your recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Terms of Service Section -->
+<section id="terms-of-service" class="py-24 bg-slate-50 border-t border-slate-200">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <h2 class="text-3xl font-bold mb-8 text-slate-800">Terms and Service</h2>
+        <div class="prose prose-slate max-w-none text-slate-600 space-y-6">
+            <p>Welcome to NutriGuide. By using our service, you agree to the following terms:</p>
+            
+            <h4 class="text-lg font-bold text-slate-800">1. Not Medical Advice</h4>
+            <p>NutriGuide provides AI-generated nutritional suggestions based on general data. It is <strong>not</strong> a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
+            
+            <h4 class="text-lg font-bold text-slate-800">2. Privacy Protocol</h4>
+            <p>We operate on a "State-Free" basis. Your personal data (age, weight, height) is processed in real-time to generate your plan and is <strong>never stored</strong> in our databases. We do not track individuals or build persistent user profiles.</p>
+            
+            <h4 class="text-lg font-bold text-slate-800">3. Accuracy of AI</h4>
+            <p>While we use advanced RAG architecture to minimize errors, AI-generated content can occasionally contain inaccuracies. NutriGuide is provided "as is" without any warranties of accuracy or reliability.</p>
+            
+            <h4 class="text-lg font-bold text-slate-800">4. Usage Limitations</h4>
+            <p>Individuals with chronic illnesses, dietary disorders, or pregnant/nursing mothers should consult a doctor before following any AI-generated meal plan.</p>
+        </div>
+    </div>
+</section>

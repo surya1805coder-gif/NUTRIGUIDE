@@ -49,6 +49,8 @@ async function getAdvice(userProfile) {
         Generate a ${userProfile.days}-DAY meal plan for a ${userProfile.age}y user (${userProfile.weight}kg, Goal: ${userProfile.goal}).
         Strict Protein Target: ${targetProtein}g/day.
 
+        CRITICAL SAFETY PROTOCOL: The user has the following allergies/medical restrictions: ${userProfile.allergies || 'None reported'}. You MUST NOT recommend any foods that violate these restrictions. Your response must be safe for this medical profile.
+
         CLINICAL RULES:
         1. Pair complementary proteins (Rice+Dal). 
         2. Pair Iron with Vit C. 

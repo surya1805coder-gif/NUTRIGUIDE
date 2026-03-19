@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 // POST /calculate - Process BMI and Advice
 router.post("/calculate", async (req, res, next) => {
     try {
-        const { age, weight, height, goal, days, gender, activity, steps, diet } = req.body;
+        const { age, weight, height, goal, days, gender, activity, steps, diet, allergies } = req.body;
 
         if (!age || !weight || !height) {
             return res.redirect("/");
@@ -40,7 +40,7 @@ router.post("/calculate", async (req, res, next) => {
 
         const userProfile = { 
             age, weight, height, bmi, goal, days: parseInt(days) || 1,
-            gender, activity, steps, diet, bmr: Math.round(bmr), tdee: Math.round(tdee)
+            gender, activity, steps, diet, allergies, bmr: Math.round(bmr), tdee: Math.round(tdee)
         };
         const aiAdvice = await aiService.getAdvice(userProfile);
 

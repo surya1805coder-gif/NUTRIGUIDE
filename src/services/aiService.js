@@ -38,7 +38,7 @@ async function getAdvice(userProfile) {
     else if (userProfile.bmi < 18.5) filtered = filtered.filter(f => parseFloat(f['Calories (kcal)']) > 350);
     filtered.sort(() => 0.5 - Math.random());
     const finalFoods = filtered.slice(0, 15);
-    const contextData = finalFoods.map(f => `- ${f['Dish Name']}: ${f['Calories (kcal)']}kcal, Protein: ${f['Protein (g)']}g`).join("\n");
+    const contextData = finalFoods.map(f => `- ${f['Dish Name']}: ${f['Calories (kcal)']}kcal, Protein: ${f['Protein (g)']}g, Fats: ${f['Fats (g)']}g, Fibre: ${f['Fibre (g)']}g`).join("\n");
 
     // MATH
     const proteinMultiplier = userProfile.goal.toLowerCase().includes('muscle') ? 2.2 : 1.1;
@@ -61,16 +61,22 @@ async function getAdvice(userProfile) {
         OUTPUT FORMAT:
         Output ONLY pure HTML with Tailwind. No intro/outro. 
         YOU MUST GENERATE ALL ${userProfile.days} DAYS INDIVIDUALLY.
-        Each day MUST have its own 2-column grid and Daily Targets box.
+        
+        For EACH meal (Breakfast, Lunch, Dinner, Snack), clearly list:
+        - Dish Name
+        - Calories (kcal)
+        - Protein (g)
+        - Fats (g)
+        - Fibre (g)
 
         Structure for EACH day:
         <div class="mb-10 p-6 border-b border-gray-200">
             <h2 class="text-2xl font-bold">📅 Day [N]</h2>
             <div class="bg-blue-50 p-4 rounded-xl mb-4">
-                <p><strong>Protein: ${targetProtein}g</strong> | Sunlight Protocol included</p>
+                <p><strong>Protein Target: ${targetProtein}g</strong> | Sunlight Protocol included</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Breakfast, Lunch, Dinner, Snack Cards -->
+                <!-- Breakfast, Lunch, Dinner, Snack Cards as white cards with detailed nutritional bullets -->
             </div>
             <p class="italic mt-4 text-gray-500">"[Quote]" - [Author]</p>
         </div>

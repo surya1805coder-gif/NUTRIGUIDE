@@ -68,27 +68,50 @@ async function getAdvice(userProfile) {
         `- ${item['Dish Name']}: ${item['Calories (kcal)']} kcal, Protein: ${item['Protein (g)']}g, Fats: ${item['Fats (g)']}g, Fibre: ${item['Fibre (g)']}g, Iron: ${item['Iron (mg)']}mg`
     ).join("\n");
 
-    const prompt = `
-        Act as an empathetic and professional Indian Nutritionist. 
-        User Profile:
-        - Age: ${userProfile.age}
-        - Gender: ${userProfile.gender}
-        - Weight: ${userProfile.weight} kg
-        - Height: ${userProfile.height} cm
-        - BMI: ${userProfile.bmi.toFixed(1)}
-        - BMR (Basal Metabolic Rate): ${userProfile.bmr} kcal
-        - TDEE (Total Daily Energy Expenditure): ${userProfile.tdee} kcal
-        - Activity Level: ${userProfile.activity}
-        - Average Daily Steps: ${userProfile.steps}
-        - Dietary Preference: ${userProfile.diet} (STRICTLY ADHERE TO THIS)
-        - Health Goal: ${userProfile.goal}
+    // The Bharat Protocol: Calculate exact protein needs
+    const proteinMultiplier = userProfile.goal.toLowerCase().includes('muscle') ? 2.2 : 1.1;
+    const targetProtein = (userProfile.weight * proteinMultiplier).toFixed(1);
 
-        Available Indian Nutritional Data (Use these specific dishes):
+    const prompt = `
+        Act as an elite Indian Clinical Nutritionist.
+        User Profile: ${userProfile.age}y, ${userProfile.weight}kg, ${userProfile.height}cm, BMI: ${userProfile.bmi.toFixed(1)}, Goal: ${userProfile.goal}.
+        Calculated Daily Protein Target: ${targetProtein}g.
+
+        CLINICAL RULES TO ENFORCE:
+        1. For vegetarian/vegan options, pair complementary proteins (e.g., Rice + Dal) to ensure a complete amino acid profile (bioavailability).
+        2. Pair Iron-rich foods with Vitamin C (like lemon squeeze) for absorption.
+        3. Hit the ${targetProtein}g protein target strictly for each of the ${userProfile.days} days. Balance healthy fats and complex carbs.
+        4. Include a brief tip about getting 15 mins of morning sunlight for Vitamin D synthesis.
+        5. Include one short, powerful motivational quote about health/food from a great mind.
+
+        AVAILABLE DATA:
         ${contextData}
 
-        Please provide a structured ${userProfile.days}-day meal plan (Breakfast, Lunch, Dinner, and 2 Snacks for EACH day) focused on Indian cuisine.
-        Organize the response clearly by Day (e.g., Day 1, Day 2, etc.).
-        Use HTML tags for formatting (like <h3>, <h4>, <p>, <ul>, <li>).
+        OUTPUT FORMAT (STRICT HTML DASHBOARD):
+        Do NOT write intro paragraphs. Output ONLY pure HTML using Tailwind classes. Use this exact structure for EACH day (multiply for ${userProfile.days} days):
+        <div class="space-y-6 mb-10 border-b pb-8">
+            <h2 class="text-2xl font-bold text-slate-800">📅 Day [N] Plan</h2>
+            <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">
+                <h3 class="font-bold text-blue-800 text-lg">💡 Daily Targets & Protocol</h3>
+                <p class="text-blue-700">Protein Goal: <strong>${targetProtein}g</strong> | Focus: Amino Acid Bioavailability & Food Pairing</p>
+                <p class="text-sm text-blue-600 mt-2">☀️ Protocol: 15 mins of direct morning sunlight recommended for Vitamin D.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h4 class="font-bold text-emerald-600 border-b pb-2 mb-2">🍳 Breakfast</h4>
+                    <ul class="text-gray-700 text-sm space-y-1 list-disc pl-4">
+                        <!-- Items here -->
+                    </ul>
+                    <p class="text-xs text-gray-500 mt-2"><em>Pairing note: [Insert pairing logic here]</em></p>
+                </div>
+                <!-- Repeat for Lunch, Dinner, and 2 Snacks -->
+            </div>
+
+            <blockquote class="italic border-l-4 border-gray-300 pl-4 py-2 mt-6 text-gray-600">
+                "[Insert Quote]" - [Author]
+            </blockquote>
+        </div>
     `;
 
     // TIER 1: Primary - Groq (Llama 3.1) - UPDATED TO PRIMARY
